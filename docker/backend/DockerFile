@@ -1,0 +1,5 @@
+FROM openjdk:8
+COPY *.jar /myaccount1.jar
+CMD ["***server.port=8888***"]
+EXPOSE 8888
+ENTRYPOINT ["java","-jar","/myaccount1.jar"]
