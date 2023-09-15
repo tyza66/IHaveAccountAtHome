@@ -6,4 +6,4 @@ import router from './router/index'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 
-createApp(App).use(router).use(ElementPlus).use(ElementPlus, {locale: zhCn,}).mount('#app')
+createApp(App).use(router).use(ElementPlus).use(ElementPlus, {locale: zhCn,size:'small'}).mount('#app')

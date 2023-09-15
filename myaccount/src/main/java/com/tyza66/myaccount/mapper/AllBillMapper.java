@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Insert;
 
 public interface AllBillMapper extends BaseMapper<AllBill> {
 
-    @Insert("INSERT INTO `myaccount`.`ALL_BILL` (`TIME`, `REVENUE`, `USE_TO`, `NOTES`) VALUES (SYSDATE(), #{revenue}, #{useTo}, #{notes})")
+    @Insert("INSERT INTO `myaccount`.`ALL_BILL` (`TIME`, `REVENUE`, `USE_TO`, `NOTES`,`IS_DELETE`) VALUES (SYSDATE(), #{revenue}, #{useTo}, #{notes},0)")
     Boolean saveBill(AllBill allBill);
 }

@@ -6,7 +6,7 @@
 				<td><input v-model="address" /></td>
 			</tr>
 			<tr>
-				<td width="30%" align="center">支出</td>
+				<td width="30%" align="center">收支</td>
 				<td>
 					<radio-group @change="radioChange">
 						<radio name="outin" value="支出" :checked="outin === 0">支出</radio>
@@ -20,7 +20,11 @@
 			</tr>
 			<tr>
 				<td width="30%" align="center">用途</td>
-				<td><input v-model="usefor" /></td>
+				<td>
+					<picker @change="bindPickerChange" :value="index" :range="array">
+						<view class="uni-input">{{array[index]}}</view>
+					</picker>
+				</td>
 			</tr>
 			<tr>
 				<td width="30%" align="center">备注</td>
@@ -56,7 +60,9 @@
 				usefor: "",
 				other: "",
 				status1: "未验证",
-				status2: "待提交"
+				status2: "待提交",
+				array: ["请选择", '衣', '食', '住', '行', '宠物', '其他', '收入'],
+				index: 0,
 			}
 		},
 		onLoad() {
@@ -74,6 +80,7 @@
 				}
 			},
 			check() {
+				console.log(this.usefor)
 				uni.showLoading({
 					title: '正在核验输入内容和服务器状态'
 				});
@@ -95,10 +102,10 @@
 					});
 					return;
 				}
-				if (this.usefor == "") {
+				if (this.usefor == "" || this.usefor == "请选择") {
 					uni.hideLoading();
 					uni.showToast({
-						title: '请输入用途',
+						title: '请选择用途',
 						duration: 1000,
 						icon: "error"
 					});
@@ -167,15 +174,16 @@
 						if (res.data.code == 200) {
 							this.status2 = "提交成功，表单已自动复位"
 							this.status1 = "上次核验内容已提交"
-							this.outin = 0,
-								this.count = 0,
-								this.usefor = "",
-								this.other = "",
-								uni.showToast({
-									title: '提交成功',
-									duration: 2000,
-									icon: "success"
-								});
+							this.outin = 0
+							this.count = 0
+							this.usefor = ""
+							this.other = ""
+							this.index = 0
+							uni.showToast({
+								title: '提交成功',
+								duration: 2000,
+								icon: "success"
+							});
 						} else {
 							uni.showToast({
 								title: '提交失败',
@@ -193,6 +201,11 @@
 						});
 					}
 				});
+			},
+			bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.detail.value)
+				this.index = e.detail.value
+				this.usefor = this.array[this.index]
 			}
 		}
 	}

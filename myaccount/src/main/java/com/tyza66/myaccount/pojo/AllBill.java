@@ -1,5 +1,8 @@
 package com.tyza66.myaccount.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,11 +15,15 @@ import java.sql.Timestamp;
  **/
 
 @Data
+@TableName("ALL_BILL")
 public class AllBill {
     Integer id;
     Timestamp time;
+    @TableField(exist = false)
+    String timeString;
     BigDecimal revenue;
     String useTo;
     String notes;
-    String isDelete;
+    @TableLogic
+    Integer isDelete;
 }
