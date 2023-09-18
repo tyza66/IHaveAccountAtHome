@@ -41,7 +41,7 @@
                     </el-col>
                     <el-col :span="6" class="bill-search">
                         页码：<el-select size="small" style="display:inline;width:150px;" placeholder="收入还是支出"
-                            v-model="this.searchtable.page">
+                            v-model="this.searchtable.page" @change="getTable()">
                             <el-option v-for="i in pages" :label="i" :value="i" :key="i" />
                         </el-select>
                     </el-col>
@@ -116,7 +116,7 @@ export default {
             request.get("/bill/get", {
                 params: {
                     size: this.searchtable.size,
-                    page: this.searchtable.page - 1
+                    page: this.searchtable.page
                 }
             }).then(res => {
                 console.log(res.data)
@@ -142,7 +142,7 @@ export default {
                     startTime: this.searchtable.start,
                     endTime: this.searchtable.end,
                     size: this.searchtable.size,
-                    page: this.searchtable.page - 1
+                    page: this.searchtable.page
                 }
             }).then(res => {
                 this.tableData = res.data
@@ -155,7 +155,6 @@ export default {
                 if (this.pages == 0) {
                     this.pages = 1;
                 }
-                this.searchtable.page = 1
             })
         },
         clear() {
