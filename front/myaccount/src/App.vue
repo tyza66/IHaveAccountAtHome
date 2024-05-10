@@ -6,9 +6,9 @@
           <div class="main-title">
             我家有账
           </div>
-          <div class="main-item" @click="routerTo(0)">
+          <!-- <div class="main-item" @click="routerTo(0)">
             首页
-          </div>
+          </div> -->
           <div class="main-item" @click="routerTo(1)">
             报账
           </div>
@@ -18,9 +18,9 @@
           <div class="main-item" @click="routerTo(3)">
             统计
           </div>
-          <div class="main-item" @click="routerTo(5)">
+          <!-- <div class="main-item" @click="routerTo(5)">
             设置
-          </div>
+          </div> -->
           <div class="main-item" @click="routerTo(4)">
             关于
           </div>
@@ -47,6 +47,10 @@ export default {
       locale: zhCn
     }
   },
+  mounted() {
+    this.routerTo(1)
+  }
+  ,
   methods: {
     routerTo(id) {
       if (id == 0) {

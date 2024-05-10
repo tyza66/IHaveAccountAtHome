@@ -8,6 +8,7 @@ import com.tyza66.myaccount.pojo.AllBill;
 import com.tyza66.myaccount.service.AllBillService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -84,6 +85,26 @@ public class AllBillServiceImpl extends ServiceImpl<AllBillMapper, AllBill> impl
             one.setTimeString(simpleDateFormat.format(one.getTime()));
         }
         return records;
+    }
+
+    @Override
+    public Double getDayCost(Timestamp date) {
+        return baseMapper.getAllOutBill(date);
+    }
+
+    @Override
+    public Double getDayRevenue(Timestamp date) {
+        return baseMapper.getAllInBill(date);
+    }
+
+    @Override
+    public Double getDayCostByUseTo(Timestamp date, String useTo) {
+        return baseMapper.getOneOutBill(date, useTo);
+    }
+
+    @Override
+    public Double getDayRevenueByUseTo(Timestamp date, String useTo) {
+        return baseMapper.getOneInBill(date, useTo);
     }
 
 

@@ -3,6 +3,7 @@ package com.tyza66.myaccount.controller;
 import cn.hutool.json.JSON;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.tyza66.myaccount.component.DingDingPusher;
 import com.tyza66.myaccount.pojo.AllBill;
 import com.tyza66.myaccount.service.AllBillService;
 import com.tyza66.myaccount.service.impl.AllBillServiceImpl;
@@ -22,6 +23,8 @@ public class BillController {
     @Autowired
     private AllBillServiceImpl allBillService;
 
+    @Autowired
+    private DingDingPusher dingDingPusher;
     @PostMapping("/add")
     public JSON addBill(@RequestBody AllBill allBill) {
         JSONObject obj = JSONUtil.createObj();
@@ -29,6 +32,7 @@ public class BillController {
         if (save) {
             obj.set("msg", "ok");
             obj.set("code", 200);
+            dingDingPusher.sendMessageMarkdown("账单提醒","账单变动"+allBill.getRevenue()+"元（"+allBill.getUseTo()+"）");
         } else {
             obj.set("msg", "error");
             obj.set("code", 500);
